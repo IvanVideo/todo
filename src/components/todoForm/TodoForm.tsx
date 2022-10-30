@@ -1,20 +1,26 @@
 import { Input, Button } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ChangeEvent } from 'react';
 import styled from 'styled-components'
 
-const Container = styled.div`
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
-`
-
 interface TodoFormProps {
     addNewTask: Function,
+    inputReset: boolean,
+    setInputReset: Function
 }
 
-const TodoForm = ({ addNewTask }: TodoFormProps) => {
+const TodoForm = ({ addNewTask, inputReset, setInputReset }: TodoFormProps) => {
     const [newTask, setNewTask] = React.useState('');
+
+    useEffect(() => {
+        if (inputReset) {
+            const input: any = document.getElementById('input');
+            input.value = '';
+            setInputReset(false);
+            console.log(input)
+        }
+        return
+    }, [inputReset])
 
     const handleSubmitForm = (event: { preventDefault: () => void; }) => {
         event?.preventDefault()
@@ -29,6 +35,7 @@ const TodoForm = ({ addNewTask }: TodoFormProps) => {
         <form onSubmit={handleSubmitForm}>
             <Container>
                 <Input
+                    id='input'
                     style={{ height: '50px' }}
                     fullWidth={true}
                     placeholder='task...'
@@ -45,3 +52,9 @@ const TodoForm = ({ addNewTask }: TodoFormProps) => {
 }
 
 export default TodoForm;
+
+const Container = styled.div`
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+`
