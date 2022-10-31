@@ -32,15 +32,18 @@ const TodoForm = ({ addNewTask, inputReset, setInputReset }: TodoFormProps) => {
     }
 
     return (
-        <form onSubmit={handleSubmitForm}>
-            <Container>
+        <form aria-label="form" onSubmit={handleSubmitForm}>
+            <Container aria-label="container">
                 <Input
+                    data-testid='value-elem'
+                    type='text'
                     id='input'
                     style={{ height: '50px' }}
                     fullWidth={true}
                     placeholder='task...'
                     onChange={(e) => { handleChangeValue(e) }} />
                 <Button
+                    data-testid="button"
                     style={{ position: 'absolute', right: '0' }}
                     size='large'
                     type='submit'>
